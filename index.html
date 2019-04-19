@@ -2,38 +2,86 @@
 <html lang="fr" dir="ltr">
 <head>
   <meta charset="utf-8" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <title>Exercice 5</title>
+  <title>Exercice 5 - Canvas</title>
 </head>
 <body>
-  <div class="container-fluid text-center">
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1 class="display-3">Exercice 5 - JQuery</h1>
-        <h3>Partie 2</h3>
-        <p class="lead">Changement bordure sur focus</p>
-      </div>
-    </div>
-    <form>
-      <label for="lastName">Nom : </label><input type="text" name="lastName" id="lastName" />
-      <label for="firstName">Prénom : </label><input type="text" name="firstName" id="firstName" />
-      <button type="button" name="button">Envoyer</button>
-    </form>
-  </div>
+
+  <canvas id="canvas"></canvas>
+
   <script src="assets\js\jquery-3.3.1.min.js"></script>
   <script>
-    // Fonction modifiant la couleur du border en fonction du focus
-    // Si on a le focus: vert
-    // Si on perd le focus: rouge
-    $(document).ready(function(){
-      $("input").focus(function(){;
-        $(this).css("border", "1px solid green");
-      });
-      $("input").blur(function(){;
-        $(this).css("border", "1px solid red");
-      });
-    });
+      // Set des dimensions du canvas
+      $("#canvas").attr("width", 1350);
+      $("#canvas").attr("height", 570);
+
+      var canvas;
+      var ctx;
+      // Var pour le déplacement sur x et y
+      var dx = 10;
+      var dy = 10;
+      // Pos initiale du carré
+      var x = 670;
+      var y = 270;
+
+    // Au chargement de la page
+    window.onload=function()
+    {
+      // Mis en place d'un trigger avec pour event une touche du clavier
+      // Et lance la finction pressArrowKeys
+      window.addEventListener('keydown', pressArrowKeys, true);
+      // Récup de l'id du canvas
+      canvas=document.getElementById("canvas");
+      // ctx: contexte de dessin bi-dimensionnel (2d) sur le canevas
+      ctx = canvas.getContext("2d");
+      // Fct qui lancera la fct draw toute les 10ms
+      return setInterval(draw, 10);
+    }
+    // Fct détectant la touche du clavier
+    function pressArrowKeys()
+    {
+      switch (event.keyCode) {
+        case 38: //Haut
+          if ((y -= dy) < 0){
+            y = 560;
+          } else {
+            y -= dy;
+          }
+          break;
+        case 40: //Bas
+          if ((y += dy) > 560){
+            y = 10;
+          } else {
+            y += dy;
+          }
+          break;
+        case 37: //Gauche
+          if ((x -= dx) < 0){
+            x = 1340;
+          } else {
+            x -= dx;
+          }
+          break;
+        case 39: //Droite
+          if ((x += dx) > 1340) {
+            x = 0;
+          } else {
+            x += dx;
+          }
+          break;
+      }
+    }
+    // Fct qui dessine le carré
+    function draw()
+    {
+      // On nettoie tout sur la hauteur et la largeur du canvas
+      ctx.clearRect(0, 0, 1354, 570);
+      // Ouvre un nouveau chemin permettant la création d'une nouvel élément
+      ctx.beginPath();
+      // Création du rectangle
+      ctx.rect(x, y, 20, 20);
+      // Remplie le carré
+      ctx.fill();
+    }
   </script>
 </body>
 </html>
