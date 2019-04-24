@@ -11,8 +11,8 @@
   <script src="assets\js\jquery-3.3.1.min.js"></script>
   <script>
       // Set des dimensions du canvas
-      $("#canvas").attr("width", 1350);
-      $("#canvas").attr("height", 570);
+      $('#canvas').attr('width', 1350);
+      $('#canvas').attr('height', 570);
 
       var canvas;
       var ctx;
@@ -30,7 +30,7 @@
       // Et lance la finction pressArrowKeys
       window.addEventListener('keydown', pressArrowKeys, true);
       // Récup de l'id du canvas
-      canvas=document.getElementById("canvas");
+      canvas=document.getElementById('canvas');
       // ctx: contexte de dessin bi-dimensionnel (2d) sur le canevas
       ctx = canvas.getContext("2d");
       // Fct qui lancera la fct draw toute les 10ms
